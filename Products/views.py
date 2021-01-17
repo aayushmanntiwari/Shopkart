@@ -30,6 +30,10 @@ def products(request,greatgrandparent_name=None,grandparent_name=None,parent_nam
         show_shopcart = True
     except:
         show_shopcart = False
+        orders = None
+        total_products_in_cart = 0
+        total_amount = 0
+        varients_orders = None
 
     category = Category.objects.get(keywords = child_name)
 
@@ -106,6 +110,10 @@ def product(request,greatgrandparent_name=None,grandparent_name=None,parent_name
         show_shopcart = True
     except:
         show_shopcart = False
+        orders = None
+        total_products_in_cart = 0
+        total_amount = 0
+        varients_orders = None
 
     if curr_product.varient == "Size":
         curr_varient = Varient.objects.get(Q(product_id = request.POST.get('product_id')) and Q(size_id = request.POST.get('varient_size_id')))
@@ -167,8 +175,8 @@ def product(request,greatgrandparent_name=None,grandparent_name=None,parent_name
 def color_options_based_on_size(request):
     data = {}
     if request.method == 'POST':
-        print(request.POST.get('product_id'))
-        print(request.POST.get('varient_size_id'))
+        #print(request.POST.get('product_id'))
+        #print(request.POST.get('varient_size_id'))
         curr_varient = Product.objects.get(id = request.POST.get('product_id'))
         child = Category.objects.get(id = curr_varient.category_id)
         parent = Category.objects.get(id = child.parent_id)

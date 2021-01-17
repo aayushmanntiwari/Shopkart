@@ -130,8 +130,10 @@
 										<input min="1" class="input" type="number" id="quantity" name="quantity">
 										{% endif %}
 									</div>
-									{% if curr_varient.availability %}
-									<button class="primary-btn add-to-cart" type="submit" onclick="this.form.submit()"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+									{% if curr_varient.availability and request.user.is_authenticated %}
+										<button class="primary-btn add-to-cart" type="submit" onclick="this.form.submit()"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+									{% else %}
+										<a class="primary-btn add-to-cart" type="button" href="/login/" ><i class="fa fa-shopping-cart"></i> Add to Cart</a>
 									{% endif %}
 								</form>
 								<div class="pull-right">

@@ -21,6 +21,8 @@ def home(request):
         if user.groups.filter(name='user'):
             try:
                 orders = Orders.objects.filter(user_id  = user.id)
+                if orders is None:
+                    orders = None
                 varients_orders = Varient.objects.all()
                 images = Image.objects.all()
                 sizes = Size.objects.all()
