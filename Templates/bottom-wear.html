@@ -1,0 +1,77 @@
+<div class="card" style="border: solid 1px; border-color: gray; border-radius: 5px;">
+    <div class="card-header" style="font-size: x-large; font-weight: bolder; padding: 20px; border-bottom: solid 1px; border-color: gray;">
+       Product Details
+    </div>
+    <div class="card-body">
+      <h5 class="card-title" style="padding-left: 11px; padding-top: 12px; font-size: large; color: #414141; font-weight: 100;"></h5>
+       <p class="card-text">
+          <table class="table">
+             <thead>
+                <tr>
+                   <th></th>
+                   <th></th>
+                </tr>
+             </thead>
+             <tbody>
+                <tr>
+                   <td>Style Code</td>
+                   <td class="custom-color">{{curr_product.wearable_StyleCode}}</td>
+                </tr>
+                <tr>
+                   <td>Ideal For</td>
+                   <td  class="custom-color">{{curr_product.wearable_IdealFor}}</td>
+                </tr>
+                <tr>
+                   <td>Suitable For</td>
+                   <td  class="custom-color">{{curr_product.wearable_SuitableFor}}</td>
+                </tr>
+                <tr>
+                   <td>Pack Of</td>
+                   <td  class="custom-color">{{curr_product.wearable_SalesPackage}}</td>
+                </tr>
+                <tr>
+                   <td>Reversible</td>
+                   <td  class="custom-color">{{curr_product.wearable_Reversible}}</td>
+                </tr>
+                <tr>
+                   <td>Fabric</td>
+                   <td  class="custom-color">{{curr_product.wearable_Fabric}}</td>
+                </tr>
+                <tr>
+                   <td>Faded</td>
+                   <td  class="custom-color">{{curr_product.wearable_Faded}}</td>
+                </tr>
+                <tr>
+                   <td>Rise</td>
+                   <td  class="custom-color">{{curr_product.wearable_Rise}}</td>
+                </tr>
+                <tr>
+                   <td>Size</td>
+                   {% for size in sizes%}
+						{% if size.id == curr_varient.size_id %}
+                            <td  class="custom-color">{{size.name}}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Distressed</td>
+                    <td  class="custom-color">{{curr_product.Distressed}}</td>
+                 </tr>
+                <tr>
+                    <td>Brand Color</td>
+                    {% for color in colors %}
+                        {% if color.id == curr_varient.color_id %}
+                            <td  class="custom-color">{{color.name}}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Others Details</td>
+                    <td  class="custom-color">{{curr_product.wearable_OtherDetails}}</td>
+                </tr>
+             </tbody>
+          </table>
+       </p>
+    </div>
+</div>
+ 

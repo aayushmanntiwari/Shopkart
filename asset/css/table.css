@@ -1,0 +1,10 @@
+.table-responsive #myTable th {
+    background-color: #4CAF50;
+    color: white;
+    
+}
+
+.table-responsive #myTable th , .table-responsive #myTable td{
+    border: 1px solid #ddd;
+    
+}

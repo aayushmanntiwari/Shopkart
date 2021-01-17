@@ -1,0 +1,215 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Seller Central Account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!--
+    =========================================================
+    * ArchitectUI HTML Theme Dashboard - v1.0.0
+    =========================================================
+    * Product Page: https://dashboardpack.com
+    * Copyright 2019 DashboardPack (https://dashboardpack.com)
+    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
+    =========================================================
+    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    -->
+    
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap4/css/bootstrap.min.css'%} ">
+
+
+    <script src="{% static 'plugins/jquery-3.3.1.slim.min.js'%} "></script>
+    <script src="{% static 'plugins/bootstrap4/js/bootstrap.min.js'%} "></script>
+    <script src="{% static 'plugins/jquery-3.4.1.min.js'%} "></script>
+    <script src="{% static 'plugins/popper.min.js'%} "></script>  
+    <script src="{% static 'plugins/jquery.dataTables.min.js'%} "></script>
+
+    <link rel="stylesheet" href="{% static 'plugins/font-awesome-4.7.0/css/all.css'%} ">
+    <link rel="stylesheet" href="{% static 'plugins/jquery.dataTables.min.css'%} ">
+
+    <!--Custom css file goes here-->
+    <link href="{% static 'css/main2.css' %}" rel="stylesheet"> 
+    <link href="{% static 'css/common2.css' %}" rel="stylesheet"> 
+    <link href="{% static 'css/table.css' %}" rel="stylesheet"> 
+
+</head>
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <div class="app-header header-shadow">
+            <!--<div class="app-header__logo">
+                <div class=""><img  class="logo-fixer" src="{% static 'images/logo.png' %}" alt="Logo here"></div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>  
+                </span>
+                {% if request.user.is_authenticated %}
+                <a href="/logout/">
+                    <button type="button" class="btn btn-primary ml-2">Logout</button>
+                </a>
+                {% endif %}
+            </div>    
+            <div class="app-header__content">
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                {% if welcomemessage %}
+                                    <div class="widget-content-left pr-2">
+                                        Welcome {{user_name}}
+                                    </div>
+                                {% endif %}
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/download.png" alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu logout-show dropdown-menu-right">
+                                            <a href="/logout/"><button type="button"  tabindex="0" class="dropdown-item" style="">Logout</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content-left  ml-3 header-user-info">
+                                    <div class="widget-heading">
+                                        
+                                    </div>
+                                    <div class="widget-subheading">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>        
+                </div>
+            </div>-->
+            <!-- Nav menu with user information -->
+            <nav class="navbar navbar-expand-xl navbar-dark bg-dark pmd-navbar pmd-z-depth fixed-top">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <div class="dropdown pmd-dropdown pmd-user-info ml-auto">
+                    <a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center" data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
+                        <img class="mr-2" src="https://pro.propeller.in/assets/images/avatar-icon-40x40.png" width="40" height="40" alt="avatar">
+                        <div class="media-body">
+                            User
+                        </div>
+                        <i class="material-icons md-light ml-2 pmd-sm">more_vert</i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <a class="dropdown-item" href="javascript:void(0);">Edit Profile</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Logout</a>
+                    </ul>
+                </div>
+            </nav>
+        </div>                
+            <div class="app-main">
+                <div class="app-main__outer padding-zero" style="width: 100% !important; padding-left: 0% !important;">
+                    <div class="app-main__inner">
+                        <a href="" class="btn btn-info mb-3" role="button">Add New Product</a>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-header">
+                                        title here 
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table  id="myTable"  class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center th-sm">Patient ID</th>
+                                                <th class="text-center">Device ID</th>
+                                                <th class="text-center">Patient Name</th>
+                                                <th class="text-center">Patient Age</th>
+                                                <th class="text-center">Patient Gender</th>
+                                                <th class="text-center">Patient Mobile Number</th>
+                                                <th class="text-center">Patient Aadhaar or any id number</th>
+                                                <th class="text-center">Patient Email Address</th>
+                                                <th class="text-center">Patient Current Address</th>
+                                                <th class="text-center">Lab Name</th>
+                                                <th class="text-center">Lab license Number</th>
+                                                <th class="text-center">Lab email address</th>
+                                                <th class="text-center">Lab Full address With Mobile Number</th>
+                                                <th class="text-center">Date Screened</th>
+                                                <th class="text-center">Time Screened</th>
+                                                <th class="text-center">Report Upload</th>
+                                                <th class="text-center">status</th>
+                                                <th class="text-center">Action</th>
+                                                
+                                            </tr>
+                                            </thead>
+                                            <tbody id="table">
+                                            <!--{% for value in values%}
+                                            <tr>
+                                                
+                                                <td class="text-center text-muted">{{value.id}}</td>
+                                                <td class="text-center text-muted">{{value.deviceid}}</td>
+                                                <td class="text-center text-muted">{{value.name}}</td>
+                                                <td class="text-center text-muted">{{value.age}}</td>
+                                                <td class="text-center text-muted">{{value.gender}}</td>
+                                                <td class="text-center text-muted">{{value.mobilenumber}}</td>
+                                                <td class="text-center text-muted">{{value.adhaarnumber}}</td>
+                                                <td class="text-center text-muted">{{value.email}}</td>
+                                                <td class="text-center text-muted">{{value.address1}},{{value.address2}},{{value.city}},{{value.state}}-{{value.zipcode}}</td>
+                                                <td class="text-center text-muted">{{value.labname}}</td>
+                                                <td class="text-center text-muted">{{value.lablicensenumber}}</td>
+                                                <td class="text-center text-muted">{{value.labemail}}</td>
+                                                <td class="text-center text-muted">{{value.labaddress}}</td>
+                                                <td class="text-center text-muted">{{value.time.date}}</td>
+                                                <td class="text-center text-muted">{{value.time.time}}</td>
+                                                <td class="text-center text-muted">{% if value.reportupload %} <a href="{{value.reportupload.url}}" download>{{value.reportupload}}</a>{% endif %}</td>
+                                                <td class="text-center text-muted">{{value.labstatus}}</td>
+                                                <td class="text-center text-muted">
+                                                    <a href="/labupdate/{{value.id}}">
+                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Update Details</button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}-->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+            </div>
+            <div class="app-wrapper-footer">
+                <div class="app-footer">
+                    <div class="app-footer__inner">
+                        <div class="app-footer-right">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link">
+                                        Powered by
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link">
+
+                                        Company name here
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+    </div>
+    <script type="text/javascript" src="{% static 'js/main2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/table.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mobilefix.js' %}"></script>
+</body>
+</html>

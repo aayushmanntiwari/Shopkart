@@ -1,0 +1,22 @@
+{% block product_colors%}
+    <form method="post" id="post-color">
+        {% csrf_token %}
+        <div id="appendHere">
+            <ul class="color-option" style="display: inline;">
+                <li><span class="text-uppercase">Color:</span></li>
+                {% for curr_varient_color in  curr_varient_colors  %}
+                    {% for image in images %}
+                        {% if curr_varient_color.image_id == image.id %}
+                        <input  type="radio" name="varient_id" value="{{curr_varient_color.id}}" onchange="this.form.submit()" onclick='this.form.action="/{{greatgrandparent_name}}/{{grandparent_name}}/{{parent_name}}/{{child_name}}/{{curr_varient_color.title}}/";'>
+                        <input type="hidden"  name="product_id" value="{{curr_varient_color.product_id}}">
+					    <input type="hidden" name="varient_size_id" value="{{curr_varient_color.size_id}}">
+                        <li style="list-style: none; display: inline;">
+                            <img src="{{image.image.url}}" style="width: 16%; border-radius: 12px;" alt="{{color.title}}">
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    </form>
+{% endblock %}
