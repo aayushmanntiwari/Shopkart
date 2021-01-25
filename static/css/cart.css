@@ -1,67 +1,164 @@
 
-
-.quantity {
-  float: left;
-  margin-right: 15px;
-  background-color: #eee;
-  position: relative;
-  width: 80px;
-  overflow: hidden
+.shppoing-cart-chekout {
+  margin: auto;
+  max-width: 950px;
+  width: 90%;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 1rem;
+  border: transparent
 }
 
-.quantity input {
+@media(max-width:767px) {
+  .shppoing-cart-chekout {
+      margin: 3vh auto
+  }
+}
+
+.shppoing-cart-chekout {
+  background-color: #fff;
+  padding: 4vh 5vh;
+  border-bottom-left-radius: 1rem;
+  border-top-left-radius: 1rem
+}
+
+@media(max-width:767px) {
+  .shppoing-cart-chekout {
+      padding: 4vh;
+      border-bottom-left-radius: unset;
+      border-top-right-radius: 1rem
+  }
+}
+
+.shppoing-cart-chekout .summary {
+  background-color: #ddd;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 4vh;
+  color: rgb(65, 65, 65)
+}
+
+@media(max-width:767px) {
+  .shppoing-cart-chekout .summary {
+      border-top-right-radius: unset;
+      border-bottom-left-radius: 1rem
+  }
+}
+
+.shppoing-cart-chekout .summary .col-2 {
+  padding: 0
+}
+
+.shppoing-cart-chekout .summary .col-10 {
+  padding: 0
+}
+
+.shppoing-cart-chekout .row {
+  margin: 0
+}
+
+.shppoing-cart-chekout .title b {
+  font-size: 1.5rem
+}
+
+.shppoing-cart-chekout .main {
   margin: 0;
-  text-align: center;
-  width: 15px;
-  height: 15px;
-  padding: 0;
-  float: right;
-  color: #000;
-  font-size: 20px;
-  border: 0;
-  outline: 0;
-  background-color: #F6F6F6
+  padding: 2vh 0;
+  width: 100%
 }
 
-.quantity input.qty {
-  position: relative;
-  border: 0;
+.shppoing-cart-chekout .col-2,
+.shppoing-cart-chekout .col {
+  padding: 0 1vh
+}
+
+.shppoing-cart-chekout a {
+  padding: 0 1vh
+}
+
+.shppoing-cart-chekout .close {
+  margin-left: auto;
+  font-size: 0.7rem
+}
+
+.shppoing-cart-chekout img {
+  width: 3.5rem
+}
+
+.shppoing-cart-chekout .back-to-shop {
+  margin-top: 4.5rem
+}
+
+.shppoing-cart-chekout h5 {
+  margin-top: 4vh
+}
+
+.shppoing-cart-chekout hr {
+  margin-top: 1.25rem
+}
+
+.shppoing-cart-chekout form {
+  padding: 2vh 0
+}
+
+.shppoing-cart-chekout select {
+  border: 1px solid rgba(0, 0, 0, 0.137);
+  padding: 1.5vh 1vh;
+  margin-bottom: 4vh;
+  outline: none;
   width: 100%;
-  height: 40px;
-  padding: 10px 25px 10px 10px;
-  text-align: center;
-  font-weight: 400;
-  font-size: 15px;
-  border-radius: 0;
-  background-clip: padding-box
+  background-color: rgb(247, 247, 247)
 }
 
-.quantity .minus, .quantity .plus {
-  line-height: 0;
-  background-clip: padding-box;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  -webkit-background-size: 6px 30px;
-  -moz-background-size: 6px 30px;
-  color: #bbb;
-  font-size: 20px;
-  position: absolute;
-  height: 50%;
-  border: 0;
-  right: 0;
-  padding: 0;
-  width: 25px;
-  z-index: 3
+.shppoing-cart-chekout input {
+  border: 1px solid rgba(0, 0, 0, 0.137);
+  padding: 1vh;
+  margin-bottom: 4vh;
+  outline: none;
+  width: 100%;
+  background-color: rgb(247, 247, 247)
 }
 
-.quantity .minus:hover, .quantity .plus:hover {
-  background-color: #dad8da
+.shppoing-cart-chekout input:focus::-webkit-input-placeholder {
+  color: transparent
 }
 
-.quantity .minus {
-  bottom: 0
+.shppoing-cart-chekout .btn {
+  background-color: #000;
+  border-color: #000;
+  color: white;
+  width: 100%;
+  font-size: 0.7rem;
+  margin-top: 4vh;
+  padding: 1vh;
+  border-radius: 0
 }
-.shopping-cart {
-  margin-top: 20px;
+
+.shppoing-cart-chekout .btn:focus {
+  box-shadow: none;
+  outline: none;
+  box-shadow: none;
+  color: white;
+  -webkit-box-shadow: none;
+  -webkit-user-select: none;
+  transition: none
+}
+
+.shppoing-cart-chekout .btn:hover {
+  color: white
+}
+
+.shppoing-cart-chekout a {
+  color: black
+}
+
+.shppoing-cart-chekout a:hover {
+  color: black;
+  text-decoration: none
+}
+
+.shppoing-cart-chekout #code {
+  background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253), rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: center
 }

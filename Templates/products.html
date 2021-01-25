@@ -238,9 +238,9 @@
 												{% if varient.product_id == value.id %}
 									<form method="POST" action="{% url 'product' greatgrandparent_name=greatgrandparent_name grandparent_name=grandparent_name parent_name=parent_name child_name=child_name product_name=varient.title%}">
 														{% csrf_token %}
-														<input type="hidden"  name="product_id" value="{{varient.product_id}}">
-														<input type="hidden" name="varient_size_id" value="{{varient.size_id}}">
-														<input type="hidden" name="varient_id" value="{{varient.id}}">
+														<input type="hidden"  name="product_id_1" value="{{varient.product_id}}">
+														<input type="hidden" name="varient_size_id_1" value="{{varient.size_id}}">
+														<input type="hidden" name="varient_id_1" value="{{varient.id}}">
 														<h2  class="product-name">
 														<button type="submit" style="background:none!important; border:none; padding:0!important; outline:none;">{{varient.title}}</button>
 														</h2>

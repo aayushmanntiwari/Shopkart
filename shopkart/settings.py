@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'colorfield',
     'crispy_forms',
     'maskurl',
+    'livereload',
 ]
 
 MIDDLEWARE  = [
@@ -73,6 +74,7 @@ MIDDLEWARE  = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'shopkart.urls'

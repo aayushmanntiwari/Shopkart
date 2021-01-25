@@ -31,7 +31,7 @@ urlpatterns = [
     path('seller/',include('seller.urls')),
     path('',include('Products.urls')),
     path('',include('Orders.urls')),
-    path('ajaxcolor/',color_options_based_on_size,name='ajaxcolor')
+    path('ajaxcolor/',color_options_based_on_size,name='ajaxcolor'),
 ]
 
 

@@ -18,15 +18,18 @@ def products(request,greatgrandparent_name=None,grandparent_name=None,parent_nam
     try:
         user = User.objects.get(username = request.user)
         orders = Orders.objects.filter(user_id  = user.id)
+        Orders.objects.filter(quantity = 0).delete()
         varients_orders = Varient.objects.all()
         if len(orders)!=0:
             total_products_in_cart = len(orders)
         else:
             total_products_in_cart = 0
+            orders = None
         if len(orders)!=0:
             total_amount = sum([int(val.amount) for val in orders])
         else:
             total_amount = 0
+            orders = None
         show_shopcart = True
     except:
         show_shopcart = False
@@ -75,7 +78,8 @@ def products(request,greatgrandparent_name=None,grandparent_name=None,parent_nam
         'total_amount':total_amount,
         'show_shopcart':show_shopcart,
         'varients_orders':varients_orders,
-        'colors':colors
+        'colors':colors,
+        'show_shopcart':show_shopcart,
         })
 
 
@@ -86,27 +90,27 @@ def product(request,greatgrandparent_name=None,grandparent_name=None,parent_name
     childrenn = Category.objects.filter(level=1)
     subchildrenn = Category.objects.filter(level=2)
     subsubchildrenn = Category.objects.filter(level=3)
-
-    curr_product = Product.objects.get(id = request.POST.get('product_id'))
-
     images = Image.objects.all()
-
     sizes = Size.objects.all()
-
     colors = Color.objects.all()
+    curr_product = Product.objects.get(id = request.POST.get('product_id_1'))
 
+    #order logic 
     try:
         user = User.objects.get(username = request.user)
         orders = Orders.objects.filter(user_id  = user.id)
+        Orders.objects.filter(quantity = 0).delete()
         varients_orders = Varient.objects.all()
         if len(orders)!=0:
             total_products_in_cart = len(orders)
         else:
             total_products_in_cart = 0
+            orders = None
         if len(orders)!=0:
             total_amount = sum([int(val.amount) for val in orders])
         else:
             total_amount = 0
+            orders = None
         show_shopcart = True
     except:
         show_shopcart = False
@@ -114,85 +118,67 @@ def product(request,greatgrandparent_name=None,grandparent_name=None,parent_name
         total_products_in_cart = 0
         total_amount = 0
         varients_orders = None
+    #order logic ./
+
 
     if curr_product.varient == "Size":
-        curr_varient = Varient.objects.get(Q(product_id = request.POST.get('product_id')) and Q(size_id = request.POST.get('varient_size_id')))
-        #print(curr_varient)
-        all_varients = Varient.objects.filter(product_id = request.POST.get('product_id')).distinct('size_id')
-        curr_varient_colors = None
-
+        curr_varient = Varient.objects.get(Q(product_id= request.POST.get('product_id_1')) &  Q(size_id =  request.POST.get('varient_size_id_1')))
+        current_varient_available_sizes = Varient.objects.filter(product_id= request.POST.get('product_id_1')).distinct('size')
+        current_varient_available_colors = None 
     else:
-        curr_varient = Varient.objects.get(Q(product_id = request.POST.get('product_id')) & Q(id = request.POST.get('varient_id')) & Q(size_id =  request.POST.get('varient_size_id')))
-        
-        #print("curr_varient: ",curr_varient)
-        
-        curr_varient_colors = Varient.objects.filter(Q(product_id =  request.POST.get('product_id')) & Q(size_id = request.POST.get('varient_size_id')))
-        
-        #print("curr_varient_colors: ",curr_varient_colors)
-
-
-        all_varients = Varient.objects.filter(product_id = request.POST.get('product_id')).distinct('size_id')
-
-
-        #print("all_varients: ",all_varients)
-
-
-        images = Image.objects.all()
-
-        sizes = Size.objects.all()
-    
-    if request.POST.get('quantity') is not None:
-        Orders.objects.get_or_create(product = curr_product,varient = curr_varient,user = request.user ,quantity = request.POST.get('quantity'))
-    return render(request,'index.html',{
-            'showproductspage':True,
-            'shownavbar':True,
-            'parent':parent,
-            'childrenn':childrenn,
-            'subchildrenn':subchildrenn,
-            'subsubchildrenn':subsubchildrenn,
-            'greatgrandparent_name':greatgrandparent_name,
-            'grandparent_name':grandparent_name,
-            'parent_name':parent_name,
-            'child_name':child_name,
-            'product_name':product_name,
-            'all_varients':all_varients,
-            'sizes':sizes,
-            'product_id':request.POST.get('product_id'),
-            'curr_varient':curr_varient,
-            'curr_product':curr_product,
-            'curr_varient_colors':curr_varient_colors,
-            'images':images,
-            'orders':orders,
-            'total_products_in_cart':total_products_in_cart,
-            'total_amount':total_amount,
-            'show_shopcart':show_shopcart,
-            'varients_orders':varients_orders,
-            'colors':colors
-    })
+        curr_varient = Varient.objects.get(Q(product_id= request.POST.get('product_id_1')) &  Q(size_id =  request.POST.get('varient_size_id_1')) & Q(id = request.POST.get('varient_id_1'))) 
+        current_varient_available_sizes = Varient.objects.filter(product_id= request.POST.get('product_id_1')).distinct('size')
+        current_varient_available_colors = Varient.objects.filter(Q(product_id= curr_product.id ) & Q(size_id = curr_varient.size_id))
+    return render(request,'index.html',
+                {
+                    'showproductspage':True,
+                    'curr_varient':curr_varient,
+                    'curr_product':curr_product,
+                    'current_varient_available_sizes':current_varient_available_sizes,
+                    'current_varient_available_colors':current_varient_available_colors,
+                    'sizes':sizes,
+                    'images':images,
+                    'greatgrandparent_name':greatgrandparent_name,
+                    'grandparent_name':grandparent_name,
+                    'parent_name':parent_name,
+                    'child_name':child_name,
+                    'product_name':product_name,
+                    'parent':parent,
+                    'childrenn':childrenn,
+                    'subchildrenn':subchildrenn,
+                    'subsubchildrenn':subsubchildrenn,
+                    'shownavbar':True,
+                    'colors':colors,
+                    'total_products_in_cart':total_products_in_cart,
+                    'total_amount':total_amount,
+                    'show_shopcart':show_shopcart,
+                    'orders':orders,
+                    'varients_orders':varients_orders,
+                })
 
 
 
 def color_options_based_on_size(request):
     data = {}
     if request.method == 'POST':
-        #print(request.POST.get('product_id'))
-        #print(request.POST.get('varient_size_id'))
         curr_varient = Product.objects.get(id = request.POST.get('product_id'))
         child = Category.objects.get(id = curr_varient.category_id)
         parent = Category.objects.get(id = child.parent_id)
         grandparent = Category.objects.get(id = parent.parent_id)
         greatgrandparent = Category.objects.get(id = grandparent.parent_id)
         images = Image.objects.all()
-        curr_varient_colors = Varient.objects.filter(Q(product_id =  request.POST.get('product_id')) & Q(size_id = request.POST.get('varient_size_id')))
-       
+        current_varient_available_colors = Varient.objects.filter(Q(product_id =  request.POST.get('product_id')) & Q(size_id = request.POST.get('varient_size_id')))
         context = {
             'images':images,
             'greatgrandparent_name':greatgrandparent.title,
             'grandparent_name':grandparent.title,
             'parent_name':parent.title,
             'child_name':child.title,
-            'curr_varient_colors':curr_varient_colors,
+            'current_varient_available_colors':current_varient_available_colors,
             'curr_varient':curr_varient,
         }
         data = {'rendered_table': render_to_string('products-colors.html',context=context)}
     return JsonResponse(data)
+
+
+    

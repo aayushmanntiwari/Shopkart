@@ -17,6 +17,7 @@
 	<!-- Bootstrap -->
 	<link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 	
+	
 
 	<!-- Slick -->
 	<link type="text/css" rel="stylesheet" href="{% static 'css/slick.css' %}">
@@ -31,7 +32,7 @@
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
 	<link type="text/css" rel="stylesheet" href="{% static 'css/common.css' %}">
-	<link type="text/css" rel="stylesheet" href="{% static 'css/cart.css' %}">
+	
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -151,22 +152,21 @@
 							</a>
 							<div class="custom-menu">
 								<div id="shopping-cart">
-									<form method="POST" id="order-form" action="/test/">
 									<div class="shopping-cart-list">
-										{% if show_shopcart == True %}
+										{% if show_shopcart == True  and orders is not None %}
 											{% for order in orders %}
-											   {% for varients_order in varients_orders %}
+											   {% for varient in varients_orders %}
 													   {% for image in images%}
 													   		{% for size in sizes %}
-																{% if order.varient_id == varients_order.id and varients_order.image_id == image.id and varients_order.size_id == size.id %}
+																{% if order.varient_id == varient.id and varient.image_id == image.id and varient.size_id == size.id  and order.quantity > 0 %}
 																	<div class="product product-widget">
 																		<input type="hidden" value="{{order.id}}" name="order_id">
 																		<div class="product-thumb">
 																			<img src="{{image.image.url}}" alt="">
 																		</div>
 																		<div class="product-body">
-																			<h3 class="product-price" style="padding-left: 5px;">₹{{varients_order.price}}<span class="qty">x</span>{{order.quantity}}<span class="qty"></span></h3>
-																			<h2 class="product-name"><a href="#">{{varients_order.title}},{{size.name}}</a></h2>
+																			<h3 class="product-price" style="padding-left: 5px;">₹{{varient.price}}<span class="qty">x</span>{{order.quantity}}<span class="qty"></span></h3>
+																			<h2 class="product-name"><a href="#">{{varient.title}},{{size.name}}</a></h2>
 																		</div>
 																		<!--<button type="submit" class="cancel-btn"><i class="fa fa-trash"></i></button>-->
 																	</div>
@@ -185,7 +185,6 @@
 											</div>
 										{% endif %}
 									</div>
-									</form>
 									<div class="shopping-cart-btns">
 										<a href="{% url 'showcart' %}">
 											<button class="main-btn">View Cart</button>
@@ -247,34 +246,38 @@
 					<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
 					{% if shownavbar %}
 					<ul class="menu-list">
-						<!--<li><a href="#">Home</a></li>
-						<li><a href="#">Shop</a></li>-->
 						{% recursetree parent %}
 						<li class="dropdown mega-dropdown">
-							<a class="dropdown-toggle"data-toggle="dropdown" aria-expanded="true">{{ node.title }}<i class="fa fa-caret-down"></i></a>
+							<!--Greatgrandparent-->
+							<a class="dropdown-toggle"data-toggle="dropdown" aria-expanded="true">{{node.title}}<i class="fa fa-caret-down"></i></a>
 							<div class="custom-menu">
 								<div class="row">
 									<div class="col-md-4"> 
-										{% for child in childrenn %}
-										<ul class="list-links">
-											{% if child.parent_id == node.id %}
-											<li><h5>{{child.title}}</h5></li>
-												{% for subchild in subchildrenn %}
+										{% for children in childrenn %}
+											{% if children.parent_id == node.id %}
 												<ul class="list-links">
-													{% if subchild.parent_id == child.id %}
-													<li><b>{{subchild.title}}</b></li>
-													{% endif %}
+													<!--grandparent-->
+													<li><h5>{{children.title}}</h5></li>
+													    {% for subchild in subchildrenn %}
+															<!--parent-->
+															{% if subchild.parent_id == children.id %}
+																<ul class="list-links">
+																	
+																		<li><b>{{subchild.title}}</b>
+																			<!--childs-->
+																			{% for subsubchild in subsubchildrenn %}
+																				{% if subsubchild.parent_id == subchild.id %}
+																					<ul class="list-links">
+																							<li><a href="{% url 'products' greatgrandparent_name=node.keywords grandparent_name=children.keywords parent_name=subchild.keywords child_name=subsubchild.keywords%}">{{subsubchild.title}}</a></li>
+																					</ul>
+																				{% endif %}
+																			{% endfor %}
+																		</li>
+																</ul>
+															{% endif %}
+														{% endfor %}
 												</ul>
-													{% for subsubchild in subsubchildrenn %}
-													<ul class="list-links">
-														{% if subsubchild.parent_id == subchild.id %}
-														<li><a href="{% url 'products' greatgrandparent_name=node.title grandparent_name=child.keywords parent_name=subchild.keywords child_name=subsubchild.keywords%}">{{subsubchild.title}}</a></li>
-														{% endif %}
-													</ul>
-													{% endfor %}
-												{% endfor %}
 											{% endif %}
-										</ul>
 										{% endfor %}
 										<hr class="hidden-md hidden-lg">
 									</div>
@@ -423,62 +426,10 @@
 	<script src="{% static 'js/nouislider.min.js' %}"></script>
 	<script src="{% static 'js/jquery.zoom.min.js' %}"></script>
 	<script src="{% static 'js/main.js' %}"></script>
-	<script>
-		$(document).on('change','#post-form',function(e){
-			e.preventDefault();
-			$.ajax({
-				type:'POST',
-				/* if no error will be found then this url will be run successfully*/
-				url:'{% url "ajaxcolor" %}',
-				data:{
-					/* this are the field name when form will be submitted*/
-					product_id:$('#product_id').val(),
-					varient_size_id:$('#varient_size_id').val(),
-					csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-					action:'post',
-				},
-				data_type:'html',
-				success:function (data){
-					console.log("success");
-					/* this will basically show the data based on the size we selected just below div size-option*/
-					$('#appendHere').html(data.rendered_table);
-				},
-				error: function (data) {
-					alert('something went wrong'+data)
-				}
-			});
-		});
-	</script>
-	{% if showproductspage %}
-	<script>
-		$(document).on('submit','#quantity-form',function(e){
-			e.preventDefault();
-			$.ajax({
-				type:'POST',
-				/* if no error will be found then this url will be run successfully*/
-				url:'{% url 'product' greatgrandparent_name=greatgrandparent_name grandparent_name=grandparent_name parent_name=parent_name child_name=child_name product_name=product_name%}',
-				data:{
-					/* this are the field name when form will be submitted*/
-					product_id:$('#product_id').val(),
-					varient_id:$('#varient_id').val(),
-					varient_size_id:$('#varient_size_id').val(),
-					quantity:$('#quantity').val(),
-					csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-					action:'post',
-				},
-				data_type:'html',
-				success:function (data){
-					console.log("success");
-				},
-				error: function (data) {
-					alert('something went wrong!'+data)
-				}
-			});
-		});
-	</script>
-	{% endif %}
-
-	
+	<script src="{% static 'js/cart.js' %}"></script>
+	<script src="{% static 'js/deleteitem.js' %}"></script>
+	<script src="{% static 'js/cookies.js' %}"></script>
+	<script src="{% static 'js/varient-colors.js' %}"></script>
 	
 </body>
 

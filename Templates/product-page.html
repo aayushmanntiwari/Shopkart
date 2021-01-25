@@ -82,48 +82,66 @@
 											{% csrf_token %}
 											<span class="text-uppercase">Size:</span>
 											<select  name="varient_size_id" id="varient_size_id">
-												<option disabled selected value> -- select an option -- </option>
-												{% for all_varient in all_varients %}
+												<option disabled  value> -- select an option -- </option>
+												{% for current_varient_available_size in current_varient_available_sizes %}
 													{% for size in sizes %}
-														{% if all_varient.size_id == size.id and all_varient.product_id == curr_varient.product_id  %}
-															<option  value="{{all_varient.size_id}}">{{size.name}}</option>
+														{% if current_varient_available_size.size_id == size.id  and current_varient_available_size.product_id == curr_varient.product_id  %}
+															<option {% if current_varient_available_size.size_id == curr_varient.size_id %} selected {% endif %}  value="{{current_varient_available_size.size_id}}">{{size.name}}</option>
 														{% endif %}
 													{% endfor %}
 												{% endfor %}
 											</select>
 										</form>
 									</div>
-									
-									{% block product_colors %}
-										{% include 'products-colors.html' %}
-									{% endblock %}
-								{% elif curr_product.varient == "Size" %}
-									<div class="size-option">
-										<form  method="POST" action="/{{greatgrandparent_name}}/{{grandparent_name}}/{{parent_name}}/{{child_name}}/{{product_name}}/">
-											<input type="hidden" name="product_id" id="product_id" value="{{curr_varient.product_id}}">
-											{% csrf_token %}
-											<span class="text-uppercase">Size:</span>
-											<select   onchange="this.form.submit()" name="varient_size_id" id="varient_size_id" >
-												<option disabled value> -- select an option -- </option>
-												{% for all_varient in all_varients %}
-													{% for size in sizes %}
-														{% if all_varient.size_id == size.id and all_varient.product_id == curr_varient.product_id  %}
-															<option  value="{{all_varient.size_id}}">{{size.name}}</option>
+
+
+									<form method="post"  id="post-color">
+										{% csrf_token %}
+										<div id="appendHere">
+											<ul class="color-option" >
+												<li><span class="text-uppercase">Color:</span></li>
+												{% for rs in current_varient_available_colors %}
+													<input type="radio"  {% if curr_varient.id == rs.id %} checked {% endif %} name="varient_id_1" id="varient_id_post_color_2" value="{{ rs.id }}" onchange="this.form.submit();">
+													<input type="hidden" name="varient_size_id_1" id="varient_size_id_post_color_2" value="{{ rs.size_id }}">
+													<input type="hidden" name="product_id_1" id="product_id_post_color_2" value="{{ rs.product_id }}">
+													{% for image in images %}
+														{% if image.id == rs.image_id %}
+															<li  {% if varient_id == rs.id %} class="active" {% endif %}>
+																<a style="background-color:; color: #D9D9D9; text-shadow: 1px 1px #000000; width: 90px">
+																</a>
+																<img src="{{image.image.url}}" style="height: 70px">
+															</li>
 														{% endif %}
 													{% endfor %}
 												{% endfor %}
-											</select>
+											</ul>
+										</div>
+									</form>
+
+
+								{% elif curr_product.varient == "Size" %}
+									<div class="size-option">
+										<form  method="POST">
+											<input type="hidden" name="product_id_1" id="product_id_size" value="{{curr_varient.product_id}}">
+											{% csrf_token %}
+											<span class="text-uppercase">Size:</span>
+											<ul class="color-option">
+												{% for current_varient_available_size in current_varient_available_sizes %}
+													{% for size in sizes %}
+														{% if current_varient_available_size.size_id == size.id and current_varient_available_size.product_id == curr_varient.product_id  %}
+															<input type="radio"  {% if curr_varient.id == current_varient_available_size.id %} checked {% endif %} name="varient_size_id_1" id="varient_size_id_size" value="{{current_varient_available_size.size_id}}" onchange="this.form.submit();">
+															<span class="text-uppercase">{{size.name}}</span>
+														{% endif %}
+													{% endfor %}
+												{% endfor %}
+											</ul>
 										</form>
 									</div>
 								{% endif %}
 							</div>
 
 							<div class="product-btns">
-								<form method="POST" id="quantity-form">
-									{% csrf_token %}
 									<input type="hidden" name="product_id" id="product_id" value="{{curr_varient.product_id}}">
-									<input type="hidden" name="varient_id" id="varient_id"  value="{{curr_varient.id}}">
-									<input type="hidden" name="varient_size_id" id="varient_size_id"  value="{{curr_varient.size_id}}">
 									<div class="qty-input">
 										{% if curr_varient.availability %}
 										<span class="text-uppercase">QTY: </span>
@@ -131,11 +149,10 @@
 										{% endif %}
 									</div>
 									{% if curr_varient.availability and request.user.is_authenticated %}
-										<button class="primary-btn add-to-cart" type="submit" onclick="this.form.submit()"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-									{% else %}
-										<a class="primary-btn add-to-cart" type="button" href="/login/" ><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+										<button class="primary-btn add-to-cart update-cart" data-check=True data-product={{curr_varient.id}} data-action='add'><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+									{% elif curr_varient.availability %}
+										<button class="primary-btn add-to-cart update-cart" data-check=False ><i class="fa fa-shopping-cart"></i> Add to Cart</button>
 									{% endif %}
-								</form>
 								<div class="pull-right">
 									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
