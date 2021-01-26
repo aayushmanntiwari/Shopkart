@@ -181,6 +181,10 @@
 									{% if parent_name == "bottomwear" %}
 										{% include 'bottom-wear.html' %}
 									{% endif %}
+
+									{% if parent_name == "brands" and grandparent_name == "mobiles" %}
+										{% include 'mobile-table.html' %}
+									{% endif %}
 								</div>
 
 								<div id="tab2" class="tab-pane fade in">

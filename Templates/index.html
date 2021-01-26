@@ -221,20 +221,44 @@
 				<!-- category nav -->
 				<div class="category-nav">
 					<span class="category-header">Categories <i class="fa fa-list"></i></span>
-					{% if showhome %}
+					{% if showhome and shownavbar %}
 					<ul class="category-list">
 						{% recursetree parent %}
 						<li class="dropdown side-dropdown">
 							<a class="dropdown-toggle" {% if not node.is_leaf_node %} data-toggle="dropdown" aria-expanded="true" {% endif %} href="{{node.id}}">{{ node.title }}<i class="fa fa-angle-right"></i></a>
 							
 							<div class="custom-menu">
-								{% if not node.is_leaf_node %}
-									<ul class="list-links">
-										<li class="dropdown side-dropdown">
-											{{children}}
-										</li>
-									</ul>
-								{% endif %}
+								<div class="row">
+									<div class="col-md-4"> 
+										{% for children in childrenn %}
+											{% if children.parent_id == node.id %}
+												<ul class="list-links">
+													<!--grandparent-->
+													<li><h5>{{children.title}}</h5></li>
+													    {% for subchild in subchildrenn %}
+															<!--parent-->
+															{% if subchild.parent_id == children.id %}
+																<ul class="list-links">
+																	
+																		<li><b>{{subchild.title}}</b>
+																			<!--childs-->
+																			{% for subsubchild in subsubchildrenn %}
+																				{% if subsubchild.parent_id == subchild.id %}
+																					<ul class="list-links">
+																							<li><a href="{% url 'products' greatgrandparent_name=node.keywords grandparent_name=children.keywords parent_name=subchild.keywords child_name=subsubchild.keywords%}">{{subsubchild.title}}</a></li>
+																					</ul>
+																				{% endif %}
+																			{% endfor %}
+																		</li>
+																</ul>
+															{% endif %}
+														{% endfor %}
+												</ul>
+											{% endif %}
+										{% endfor %}
+										<hr class="hidden-md hidden-lg">
+									</div>
+								</div>
 							</div>
 						</li>
 						{% endrecursetree %}

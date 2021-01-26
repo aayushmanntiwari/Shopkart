@@ -15,39 +15,43 @@
             <tbody>
                <tr>
                   <td>In The Box</td>
-                  <td class="custom-color">{{product.in_the_box}}</td>
+                  <td class="custom-color">{{curr_varient.in_the_box}}</td>
                </tr>
                <tr>
                   <td>Model Number</td>
-                  <td  class="custom-color">{{product.model_number}}</td>
+                  <td  class="custom-color">{{curr_varient.model_number}}</td>
                </tr>
                <tr>
                   <td>Model Name</td>
-                  <td  class="custom-color">{{product.model_name}}</td>
+                  <td  class="custom-color">{{curr_varient.model_name}}</td>
                </tr>
                <tr>
                   <td>Color</td>
-                  <td  class="custom-color">{{product.color}}</td>
+                  {% for color in colors %}
+                        {% if color.id == curr_varient.color_id %}
+                            <td  class="custom-color">{{color.name}}</td>
+                        {% endif %}
+                  {% endfor %}
                </tr>
                <tr>
                   <td>Browse Type</td>
-                  <td  class="custom-color">{{product.browser_type}}</td>
+                  <td  class="custom-color">{{curr_varient.browser_type}}</td>
                </tr>
                <tr>
                   <td>SIM Type</td>
-                  <td  class="custom-color">{{product.sim_type}}</td>
+                  <td  class="custom-color">{{curr_varient.sim_type}}</td>
                </tr>
                <tr>
                   <td>Hybrid Sim Slot</td>
-                  <td  class="custom-color">{{product.hybrid_sim_slot}}</td>
+                  <td  class="custom-color">{{curr_varient.hybrid_sim_slot}}</td>
                </tr>
                <tr>
                   <td>Touchscreen</td>
-                  <td  class="custom-color">{{product.touchscreen}}</td>
+                  <td  class="custom-color">{{curr_varient.touchscreen}}</td>
                </tr>
                <tr>
                   <td>OTG Compatible</td>
-                  <td  class="custom-color">{{product.otg_compatible}}</td>
+                  <td  class="custom-color">{{curr_varient.otg_compatible}}</td>
                </tr>
             </tbody>
          </table>
@@ -68,23 +72,23 @@
             <tbody>
                <tr>
                   <td>Display Size</td>
-                  <td class="custom-color">{{product.display_size}}</td>
+                  <td class="custom-color">{{curr_varient.display_size}}</td>
                </tr>
                <tr>
                   <td>Resolution</td>
-                  <td  class="custom-color">{{product.resolution}}</td>
+                  <td  class="custom-color">{{curr_varient.resolution}}</td>
                </tr>
                <tr>
                   <td>GPU</td>
-                  <td  class="custom-color">{{product.gpu}}</td>
+                  <td  class="custom-color">{{curr_varient.gpu}}</td>
                </tr>
                <tr>
                   <td>Display Type</td>
-                  <td  class="custom-color">{{product.display_type}}</td>
+                  <td  class="custom-color">{{curr_varient.display_type}}</td>
                </tr>
                <tr>
                   <td>Display Colors</td>
-                  <td  class="custom-color">{{product.display_colors}}</td>
+                  <td  class="custom-color">{{curr_varient.display_colors}}</td>
                </tr>
             </tbody>
          </table>
@@ -105,23 +109,23 @@
             <tbody>
                <tr>
                   <td>Operating System</td>
-                  <td class="custom-color">{{product.operating_system}}</td>
+                  <td class="custom-color">{{curr_varient.operating_system}}</td>
                </tr>
                <tr>
                   <td>Processor Type</td>
-                  <td  class="custom-color">{{product.processor_type}}</td>
+                  <td  class="custom-color">{{curr_varient.processor_type}}</td>
                </tr>
                <tr>
                   <td>Processor Core</td>
-                  <td  class="custom-color">{{product.processor_core}}</td>
+                  <td  class="custom-color">{{curr_varient.processor_core}}</td>
                </tr>
                <tr>
                   <td>Primary Clock Speed</td>
-                  <td  class="custom-color">{{product.primary_clock_speed}}</td>
+                  <td  class="custom-color">{{curr_varient.primary_clock_speed}}</td>
                </tr>
                <tr>
                   <td>Operating Frequency</td>
-                  <td  class="custom-color">{{product.operating_frequency}}</td>
+                  <td  class="custom-color">{{curr_varient.operating_frequency}}</td>
                </tr>
             </tbody>
          </table>
@@ -142,19 +146,23 @@
             <tbody>
                <tr>
                   <td>Internal Storage</td>
-                  <td class="custom-color">{{product.internal_storage}}</td>
+                  <td class="custom-color">{{curr_varient.internal_storage}}</td>
                </tr>
                <tr>
                   <td>RAM</td>
-                  <td  class="custom-color">{{product.ram}}</td>
+                  {% for size in sizes%}
+						      {% if size.id == curr_varient.size_id %}
+                            <td  class="custom-color">{{size.name}}</td>
+                        {% endif %}
+                  {% endfor %}
                </tr>
                <tr>
                   <td>Expandable Storage</td>
-                  <td  class="custom-color">{{product.expandable_storage}}</td>
+                  <td  class="custom-color">{{curr_varient.expandable_storage}}</td>
                </tr>
                <tr>
                   <td>Memory Card Slot Type</td>
-                  <td  class="custom-color">{{product.memory_card_slot_type}}</td>
+                  <td  class="custom-color">{{curr_varient.memory_card_slot_type}}</td>
                </tr>
             </tbody>
          </table>
@@ -175,35 +183,35 @@
             <tbody>
                <tr>
                   <td>Primary Camera Available</td>
-                  <td class="custom-color">{{product.primary_camera_available}}</td>
+                  <td class="custom-color">{{curr_varient.primary_camera_available}}</td>
                </tr>
                <tr>
                   <td>Primary Camera</td>
-                  <td  class="custom-color">{{product.primary_camera}}</td>
+                  <td  class="custom-color">{{curr_varient.primary_camera}}</td>
                </tr>
                <tr>
                   <td>Primary Camera Features</td>
-                  <td  class="custom-color">{{product.primary_camera_features}}</td>
+                  <td  class="custom-color">{{curr_varient.primary_camera_features}}</td>
                </tr>
                <tr>
                   <td>Secondary Camera Available</td>
-                  <td  class="custom-color">{{product.secondary_camera_available}}</td>
+                  <td  class="custom-color">{{curr_varient.secondary_camera_available}}</td>
                </tr>
                <tr>
                   <td>Secondary Camera</td>
-                  <td  class="custom-color">{{product.secondary_camera}}</td>
+                  <td  class="custom-color">{{curr_varient.secondary_camera}}</td>
                </tr>
                <tr>
                   <td>Secondary Camera Features</td>
-                  <td  class="custom-color">{{product.secondary_camera_features}}</td>
+                  <td  class="custom-color">{{curr_varient.secondary_camera_features}}</td>
                </tr>
                <tr>
                   <td>Flash</td>
-                  <td  class="custom-color">{{product.flash}}</td>
+                  <td  class="custom-color">{{curr_varient.flash}}</td>
                </tr>
                <tr>
                   <td>Dual Camera Lens</td>
-                  <td  class="custom-color">{{product.dual_camera_lens}}</td>
+                  <td  class="custom-color">{{curr_varient.dual_camera_lens}}</td>
                </tr>
             </tbody>
          </table>
@@ -224,7 +232,7 @@
             <tbody>
                <tr>
                   <td>Call Features</td>
-                  <td class="custom-color">{{product.call_records}}</td>
+                  <td class="custom-color">{{curr_varient.call_records}}</td>
                </tr>
             </tbody>
          </table>
@@ -245,31 +253,31 @@
             <tbody>
                <tr>
                   <td>Network Type</td>
-                  <td class="custom-color">{{product.network_type}}</td>
+                  <td class="custom-color">{{curr_varient.network_type}}</td>
                </tr>
                <tr>
                   <td>Supported Networks</td>
-                  <td  class="custom-color">{{product.support_networks}}</td>
+                  <td  class="custom-color">{{curr_varient.support_networks}}</td>
                </tr>
                <tr>
                   <td>Internet Connectivity</td>
-                  <td  class="custom-color">{{product.internet_connectivity}}</td>
+                  <td  class="custom-color">{{curr_varient.internet_connectivity}}</td>
                </tr>
                <tr>
                   <td>Bluetooth Connectivity</td>
-                  <td  class="custom-color">{{product.bluetooth_support}}</td>
+                  <td  class="custom-color">{{curr_varient.bluetooth_support}}</td>
                </tr>
                <tr>
                   <td>Infrared</td>
-                  <td  class="custom-color">{{product.infrared}}</td>
+                  <td  class="custom-color">{{curr_varient.infrared}}</td>
                </tr>
                <tr>
                   <td>Audio Jack</td>
-                  <td  class="custom-color">{{product.audio_jack}}</td>
+                  <td  class="custom-color">{{curr_varient.audio_jack}}</td>
                </tr>
                <tr>
                   <td>GPS Support</td>
-                  <td  class="custom-color">{{product.gps_support}}</td>
+                  <td  class="custom-color">{{curr_varient.gps_support}}</td>
                </tr>
             </tbody>
          </table>
@@ -290,31 +298,31 @@
             <tbody>
                <tr>
                   <td>Smartphone</td>
-                  <td class="custom-color">{{product.smartphone}}</td>
+                  <td class="custom-color">{{curr_varient.smartphone}}</td>
                </tr>
                <tr>
                   <td>Touchscreen Type</td>
-                  <td  class="custom-color">{{product.touchscreen_type}}</td>
+                  <td  class="custom-color">{{curr_varient.touchscreen_type}}</td>
                </tr>
                <tr>
                   <td>User Interface</td>
-                  <td  class="custom-color">{{product.user_interface}}</td>
+                  <td  class="custom-color">{{curr_varient.user_interface}}</td>
                </tr>
                <tr>
                   <td>Removable Battery</td>
-                  <td  class="custom-color">{{product.removable_battery}}</td>
+                  <td  class="custom-color">{{curr_varient.removable_battery}}</td>
                </tr>
                <tr>
                   <td>Sensors</td>
-                  <td  class="custom-color">{{product.sensors}}</td>
+                  <td  class="custom-color">{{curr_varient.sensors}}</td>
                </tr>
                <tr>
                   <td>Ringtones Format</td>
-                  <td  class="custom-color">{{product.ringtones_format}}</td>
+                  <td  class="custom-color">{{curr_varient.ringtones_format}}</td>
                </tr>
                <tr>
                   <td>Other Features</td>
-                  <td  class="custom-color">{{product.other_features}}</td>
+                  <td  class="custom-color">{{curr_varient.other_features}}</td>
                </tr>
             </tbody>
          </table>
@@ -335,11 +343,11 @@
             <tbody>
                <tr>
                   <td>Audio Formats</td>
-                  <td class="custom-color">{{product.audio_formats}}</td>
+                  <td class="custom-color">{{curr_varient.audio_formats}}</td>
                </tr>
                <tr>
                   <td>Video Formats</td>
-                  <td  class="custom-color">{{product.video_formats}}</td>
+                  <td  class="custom-color">{{curr_varient.video_formats}}</td>
                </tr>
             </tbody>
          </table>
@@ -360,11 +368,11 @@
             <tbody>
                <tr>
                   <td>Battery Capacity</td>
-                  <td class="custom-color">{{product.battery_capacity}}</td>
+                  <td class="custom-color">{{curr_varient.battery_capacity}}</td>
                </tr>
                <tr>
                   <td>Talk Time</td>
-                  <td  class="custom-color">{{product.talk_time}}</td>
+                  <td  class="custom-color">{{curr_varient.talk_time}}</td>
                </tr>
             </tbody>
          </table>
@@ -385,19 +393,19 @@
             <tbody>
                <tr>
                   <td>Width</td>
-                  <td class="custom-color">{{product.width}}</td>
+                  <td class="custom-color">{{curr_varient.width}}</td>
                </tr>
                <tr>
                   <td>Height</td>
-                  <td  class="custom-color">{{product.height}}</td>
+                  <td  class="custom-color">{{curr_varient.height}}</td>
                </tr>
                <tr>
                   <td>Depth</td>
-                  <td  class="custom-color">{{product.depth}}</td>
+                  <td  class="custom-color">{{curr_varient.depth}}</td>
                </tr>
                <tr>
                   <td>Weight</td>
-                  <td  class="custom-color">{{product.weight}}</td>
+                  <td  class="custom-color">{{curr_varient.weight}}</td>
                </tr>
             </tbody>
          </table>
@@ -418,7 +426,7 @@
             <tbody>
                <tr>
                   <td>Warranty Summary</td>
-                  <td class="custom-color">{{product.warranty_summary}}</td>
+                  <td class="custom-color">{{curr_varient.warranty_summary}}</td>
                </tr>
             </tbody>
          </table>
