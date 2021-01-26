@@ -17,6 +17,8 @@ import cloudinary.uploader
 import cloudinary.api
 
 
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -223,3 +225,6 @@ cloudinary.config(
   api_key = "498346358555229", 
   api_secret = "uEFHIDLpPeM0jnZqEKOa4bw46bM" 
 )
+
+
+
