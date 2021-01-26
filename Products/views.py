@@ -38,25 +38,28 @@ def products(request,greatgrandparent_name=None,grandparent_name=None,parent_nam
         total_amount = 0
         varients_orders = None
 
-    category = Category.objects.get(keywords = child_name)
+    try:
+        category = Category.objects.get(keywords = child_name)
 
-    products = Product.objects.filter(category = category.id)
+        products = Product.objects.filter(category = category.id)
 
-    images = Image.objects.all()
+        images = Image.objects.all()
 
-    sizes = Size.objects.all()
+        sizes = Size.objects.all()
 
-    colors = Color.objects.all()
+        colors = Color.objects.all()
 
-    varients = []
-    varients_sizes = []
-    for product in products:
-        varient = Varient.objects.filter(product_id = product.id).distinct('size')
-        if len(varient)>=1:
-            varients.append(varient[0])
-            for id in varient.values_list('size',flat=True):
-                if  (product.id,Size.objects.get(id = id).name) not in varients_sizes:
-                    varients_sizes.append((product.id,Size.objects.get(id = id).name))
+        varients = []
+        varients_sizes = []
+        for product in products:
+            varient = Varient.objects.filter(product_id = product.id).distinct('size')
+            if len(varient)>=1:
+                varients.append(varient[0])
+                for id in varient.values_list('size',flat=True):
+                    if  (product.id,Size.objects.get(id = id).name) not in varients_sizes:
+                        varients_sizes.append((product.id,Size.objects.get(id = id).name))
+    except:
+        pass
     return render(request,'index.html',{
         'showproducts':True,
         'shownavbar':True,
