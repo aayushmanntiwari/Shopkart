@@ -56,7 +56,7 @@
 									<h2 class="product-name">{{curr_varient.title}},{{size.name}}</h2>
 								{% endif %}
 							{% endfor %}
-							<h3 class="product-price">{{curr_varient.price}}<del class="product-old-price">{{curr_varient.orignal_price}}</del></h3>
+							<h3 class="product-price">₹{{curr_varient.price}}<del class="product-old-price">₹{{curr_varient.orignal_price}}</del></h3>
 							<div>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
@@ -80,7 +80,11 @@
 										<form method="POST" id="post-form">
 											<input type="hidden" name="product_id" id="product_id" value="{{curr_varient.product_id}}">
 											{% csrf_token %}
-											<span class="text-uppercase">Size:</span>
+											{% if grandparent_name == "mobiles" and parent_name == "brands" %}
+												<span class="text-uppercase">Configuration:</span>
+											{% else %}
+												<span class="text-uppercase">Size:</span>
+											{% endif %}
 											<select  name="varient_size_id" id="varient_size_id">
 												<option disabled  value> -- select an option -- </option>
 												{% for current_varient_available_size in current_varient_available_sizes %}

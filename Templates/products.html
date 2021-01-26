@@ -248,7 +248,12 @@
 													
 												{% endif %}
 											{% endfor %}
-												<span>size&nbsp;</span>
+
+												{% if grandparent_name == "mobiles" and parent_name == "brands" %}
+													<span class="text-uppercase">Configuration:</span>
+												{% else %}
+													<span class="text-uppercase">Size:</span>
+												{% endif %}
 												<ul id="menu-footer-menu" class="menu" style="display: inline;">
 													{% for k,v in varients_sizes %}
 														{% if k == value.id %}
