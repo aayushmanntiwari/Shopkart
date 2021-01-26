@@ -59,7 +59,17 @@ def products(request,greatgrandparent_name=None,grandparent_name=None,parent_nam
                     if  (product.id,Size.objects.get(id = id).name) not in varients_sizes:
                         varients_sizes.append((product.id,Size.objects.get(id = id).name))
     except:
-        pass
+        products = None
+        varients = None
+        varients_sizes = None
+        colors = None
+        sizes = None
+        images = None
+        category = None
+        showproducts = False
+        shownavbar = False
+
+
     return render(request,'index.html',{
         'showproducts':True,
         'shownavbar':True,
@@ -123,15 +133,19 @@ def product(request,greatgrandparent_name=None,grandparent_name=None,parent_name
         varients_orders = None
     #order logic ./
 
-
-    if curr_product.varient == "Size":
-        curr_varient = Varient.objects.get(Q(product_id= request.POST.get('product_id_1')) &  Q(size_id =  request.POST.get('varient_size_id_1')))
-        current_varient_available_sizes = Varient.objects.filter(product_id= request.POST.get('product_id_1')).distinct('size')
-        current_varient_available_colors = None 
-    else:
-        curr_varient = Varient.objects.get(Q(product_id= request.POST.get('product_id_1')) &  Q(size_id =  request.POST.get('varient_size_id_1')) & Q(id = request.POST.get('varient_id_1'))) 
-        current_varient_available_sizes = Varient.objects.filter(product_id= request.POST.get('product_id_1')).distinct('size')
-        current_varient_available_colors = Varient.objects.filter(Q(product_id= curr_product.id ) & Q(size_id = curr_varient.size_id))
+    try:
+        if curr_product.varient == "Size":
+            curr_varient = Varient.objects.get(Q(product_id= request.POST.get('product_id_1')) &  Q(size_id =  request.POST.get('varient_size_id_1')))
+            current_varient_available_sizes = Varient.objects.filter(product_id= request.POST.get('product_id_1')).distinct('size')
+            current_varient_available_colors = None 
+        else:
+            curr_varient = Varient.objects.get(Q(product_id= request.POST.get('product_id_1')) &  Q(size_id =  request.POST.get('varient_size_id_1')) & Q(id = request.POST.get('varient_id_1'))) 
+            current_varient_available_sizes = Varient.objects.filter(product_id= request.POST.get('product_id_1')).distinct('size')
+            current_varient_available_colors = Varient.objects.filter(Q(product_id= curr_product.id ) & Q(size_id = curr_varient.size_id))
+    except:
+        curr_varient = None
+        current_varient_available_sizes = None
+        current_varient_available_colors = None
     return render(request,'index.html',
                 {
                     'showproductspage':True,
