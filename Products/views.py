@@ -15,6 +15,7 @@ def products(request,greatgrandparent_name=None,grandparent_name=None,parent_nam
     subchildrenn = Category.objects.filter(level=2)
     subsubchildrenn = Category.objects.filter(level=3)
     
+    wishlist = Wishlist.objects.all()
 
     try:
         user = User.objects.get(username = request.user)
@@ -94,6 +95,7 @@ def products(request,greatgrandparent_name=None,grandparent_name=None,parent_nam
         'varients_orders':varients_orders,
         'colors':colors,
         'show_shopcart':show_shopcart,
+        'wishlist':wishlist,
         })
 
 

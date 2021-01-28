@@ -267,7 +267,7 @@
 												{% if varient.product_id == value.id %}
 													<input type="hidden"  id="product_id" name="product_id" value="{{varient.product_id}}">
 													{% if request.user.is_authenticated %}
-														<button type="button" class="main-btn icon-btn add-to-wishlist" data-check=True data-product={{varient.id}} data-action='addtolist'><i class="fa fa-heart"></i></button>
+															<button type="button" {% for wlist in  wishlist %}{% if wlist.varient_id == varient.id and wlist.user_id == request.user.id %} style="box-shadow: 0px 0px 0px 1px #f8694a inset, 0px 0px 0px 0px #f8694a; color: #F8694A;" {% endif %}{% endfor %}class="main-btn icon-btn add-to-wishlist"  data-check=True data-product={{varient.id}} data-action='addtolist'><i class="fa fa-heart"></i></button>
 													{% else %}
 														<button type="button" class="main-btn icon-btn add-to-wishlist" data-check=False data-product={{varient.id}} data-action='addtolist'><i class="fa fa-heart"></i></button>
 													{% endif %}
