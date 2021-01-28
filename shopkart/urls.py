@@ -29,6 +29,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('passwordvalidation/(?P<pk>[0-9]+)/<num>/$',password,name='passwordvalidation'),
     path('seller/',include('seller.urls')),
+    path('',include('wishlist.urls')),
     path('',include('Products.urls')),
     path('',include('Orders.urls')),
     path('ajaxcolor/',color_options_based_on_size,name='ajaxcolor'),

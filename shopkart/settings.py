@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'seller.apps.SellerConfig',
     'Products.apps.ProductsConfig',
     'Orders.apps.OrdersConfig',
+    'wishlist.apps.WishlistConfig',
     'ckeditor',
     'ckeditor_uploader',
     'mptt',

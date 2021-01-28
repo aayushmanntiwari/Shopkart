@@ -6,6 +6,7 @@ from django.http import *
 from django.template.loader import render_to_string
 from Orders.models import Orders
 from django.contrib.auth.models import User,Group
+from wishlist.models import Wishlist
 
 # Create your views here.
 def products(request,greatgrandparent_name=None,grandparent_name=None,parent_name=None,child_name=None):
@@ -139,13 +140,28 @@ def product(request,greatgrandparent_name=None,grandparent_name=None,parent_name
             current_varient_available_sizes = Varient.objects.filter(product_id= request.POST.get('product_id_1')).distinct('size')
             current_varient_available_colors = None 
         else:
-            curr_varient = Varient.objects.get(Q(product_id= request.POST.get('product_id_1')) &  Q(size_id =  request.POST.get('varient_size_id_1')) & Q(id = request.POST.get('varient_id_1'))) 
+            curr_varient = Varient.objects.get(Q(product_id= request.POST.get('product_id_1')) &  Q(size_id =  request.POST.get('varient_size_id_1')) & Q(id = request.POST.get('varient_id_1')))
             current_varient_available_sizes = Varient.objects.filter(product_id= request.POST.get('product_id_1')).distinct('size')
             current_varient_available_colors = Varient.objects.filter(Q(product_id= curr_product.id ) & Q(size_id = curr_varient.size_id))
     except:
         curr_varient = None
         current_varient_available_sizes = None
         current_varient_available_colors = None
+        wishlist = None
+
+    try:
+        curr_varient = Varient.objects.get(Q(product_id= request.POST.get('product_id_1')) &  Q(size_id =  request.POST.get('varient_size_id_1')))
+        wishlist = Wishlist.objects.get(varient_id = curr_varient.id)
+    except:
+        print(2)
+        wishlist = None
+
+    try:
+        curr_varient = Varient.objects.get(Q(product_id= request.POST.get('product_id_1')) &  Q(size_id =  request.POST.get('varient_size_id_1')) & Q(id = request.POST.get('varient_id_1')))
+        wishlist = Wishlist.objects.get(varient_id = curr_varient.id)
+    except:
+        wishlist = None
+
     return render(request,'index.html',
                 {
                     'showproductspage':True,
@@ -171,6 +187,7 @@ def product(request,greatgrandparent_name=None,grandparent_name=None,parent_name
                     'show_shopcart':show_shopcart,
                     'orders':orders,
                     'varients_orders':varients_orders,
+                    'wishlist':wishlist,
                 })
 
 

@@ -15,7 +15,6 @@ def showcart(request):
         orders = Orders.objects.filter(user_id  = user.id)
         Orders.objects.filter(quantity = 0).delete()
         varients_orders = Varient.objects.all()
-        print(orders)
         if len(orders)!=0:
             total_products_in_cart = len(orders)
         else:
@@ -81,13 +80,6 @@ def updateItem(request):
     product_id = data['product_id']
     varient = Varient.objects.get(id = varient_id)
     product = Product.objects.get(id = product_id)
-    '''print('varient_id:',varient_id)
-    print("action: ",action)
-    print("user_check: ",user_check)
-    print("quantity: ",quantity)
-    print("product_id: ",product_id)
-    print("varient: ",varient)
-    print('product: ',product)'''
     if action == "add":
         orders,created = Orders.objects.get_or_create(product = product,varient = varient,user = request.user)
         if created:
@@ -116,4 +108,4 @@ def deleteorderitem(request):
     data = json.loads(request.body)
     order_id = data['order_id']
     Orders.objects.get(id = order_id).delete()
-    return JsonResponse('Item delted sucessfully !',safe=False)
+    return JsonResponse('Item deleted sucessfully !',safe=False)
