@@ -110,7 +110,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'shopkart',
         'USER':'postgres',
-        'PASSWORD':'123',
+        'PASSWORD':'',
         'HOST':'localhost'
     }
 }
