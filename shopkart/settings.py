@@ -15,7 +15,7 @@ import time
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
+import dj_database_url
 
 import mimetypes
 mimetypes.add_type("text/css", ".css", True)
@@ -36,7 +36,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'ayushhub.herokuapp.com',
+    '',
 ]
 
 
@@ -106,17 +106,12 @@ WSGI_APPLICATION = 'shopkart.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'shopkart',
-        'USER':'postgres',
-        'PASSWORD':'',
-        'HOST':'localhost'
-    }
+    "default":dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
 
 
-import dj_database_url
+
+
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 #DATABASES['default']['CONN_MAX_AGE'] = 500
